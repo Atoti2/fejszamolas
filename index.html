@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Szamolas</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            color: white;
+         
+        }
+        .cont{
+           text-align: center;
+           padding: 5px;
+           background-color: darkslategrey;
+        }
+        .gomb{
+            background-color: coral;
+            padding: 6px;  
+            border: none;
+            text-align: center;
+            color: white;
+            border-radius: 3px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .gomb:hover{
+            background-color: chocolate;
+        
+        }
+        .szamolas{
+            margin-top: 15px;
+            user-select: none;
+        }
+        .ok,.bad{visibility: hidden; margin-bottom: 10px;}
+        .time{
+            margin: 0 auto;
+            background-color: blue;
+            border-radius: 5px;
+            height: 5px;
+            width: 0px;
+            user-select: none;
+        }
+        .tim{
+            margin: 0 auto;
+            border: 1px solid white;
+            background-color: gray;
+            width: 100px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="cont">
+        <h1>Jó vagy a fejszámolásban?</h1>
+        <button class="gomb" onclick="start()">Új számot kérek</button>
+        <div class="szamolas">
+            <span class="nr1">...</span> <i class="fa-solid fa-plus"></i> <span class="nr2">...</span> <i class="fa-solid fa-equals"></i> <input type="text" placeholder="Eredmény" onkeyup="check(this)">
+        </div>
+        <div class="ok"><i class="fa-sharp fa-solid fa-thumbs-up fa-2x"></i></div>
+        <div class="bad"><i class="fa-solid fa-x fa-2x"></i></div>
+        <div class="tim">
+            <div class="time"></div>
+        </div>
+     
+    </div>
+
+    <script>
+        let n1 
+        let n2 
+        let timeLeft
+        let timer
+        let result
+
+        const randFnc = (n) => Math.floor(Math.random() * n)
+
+        const start = () => {
+            if(timer) clearTimeout(timer)
+            w = 120
+            document.querySelector('.ok').style.visibility = "hidden"
+            document.querySelector('.bad').style.visibility = "hidden"
+            document.querySelector('input').disabled = false
+            document.querySelector('input').value = ''
+            n1 = randFnc(100)
+            n2 = randFnc(100)
+            document.querySelector('.nr2').innerHTML=n2
+            document.querySelector('.nr1').innerHTML=n1
+            countDown()
+
+        }
+        var w = 120
+        function countDown(){
+            timeLeft = 5
+            timer = setInterval(() => {
+                w = w-20
+                timeLeft--
+                document.querySelector('.time').style.width = w + "px"
+                if(timeLeft >=0 && result){
+                    clearInterval(timer)
+                    document.querySelector('.ok').style.visibility="visible"
+                    document.querySelector('input').style.disabled = true
+                }
+                if(timeLeft < 0){
+                    document.querySelector('input').disabled = true
+                    document.querySelector('.bad').style.visibility="visible"
+                    clearInterval(timer)   
+                    return 
+                }
+             
+            }, 1000)
+        }
+
+        const check = (e) => {
+            if(e.value == n1+n2){
+                result=true
+            }
+        }
+   
+    </script>
+</body>
+</html>
