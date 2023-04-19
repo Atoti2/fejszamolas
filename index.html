@@ -52,6 +52,9 @@
             width: 100px;
             border-radius: 5px;
         }
+        input{
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -80,6 +83,7 @@
 
         const start = () => {
             if(timer) clearTimeout(timer)
+            result = false
             w = 120
             document.querySelector('.ok').style.visibility = "hidden"
             document.querySelector('.bad').style.visibility = "hidden"
